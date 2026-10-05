@@ -2,13 +2,35 @@
 <rss version="2.0">
 <channel>
 <title>PPC RSS</title>
-<link>https://www.ppc.go.jp/</link>
-<description>PPC RSS</description>
-
 <item>
-<title>PPCトップページ取得成功</title>
-<link>https://www.ppc.go.jp/</link>
+<title>フッターへ移動します</title>
 </item>
-
+<item>
+<title>個人情報保護委員会について</title>
+</item>
+<item>
+<title>個人情報保護委員会の運営</title>
+</item>
+<item>
+<title>委員長・委員・幹部紹介</title>
+</item>
+<item>
+<title>年次報告・上半期報告</title>
+</item>
+<item>
+<title>個人情報を考える週間</title>
+</item>
+<item>
+<title>令和３年改正法　特集</title>
+</item>
+<item>
+<title>令和２年改正法　特集</title>
+</item>
+<item>
+<title>広報資料（出版物・動画）</title>
+</item>
+<item>
+<title>顔識別機能付カメラシステム</title>
+</item>
 </channel>
 </rss>

@@ -20,9 +20,6 @@ for link in links:
     if len(title) < 15:
         continue
 
-    if "個人情報保護委員会" in title:
-        continue
-
     if "年次報告" in title:
         continue
 

@@ -19,7 +19,18 @@ for link in links:
 
     if len(title) < 10:
         continue
+    ng_words = [
+        "フッターへ移動します",
+        "ホーム",
+        "委員会について",
+        "個人情報保護委員会について",
+        "委員長・委員・幹部紹介"
+    ]
 
+    if title in ng_words:
+        continue
+
+    
     if len(items) >= 10:
         break
 

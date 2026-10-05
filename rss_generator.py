@@ -17,6 +17,20 @@ items = []
 for link in links:
     title = link.get_text(strip=True)
 
+if "個人情報保護委員会" in title:
+    continue
+
+if "改正法" in title:
+    continue
+
+if "年次報告" in title:
+    continue
+
+if "上半期報告" in title:
+    continue
+
+if "個人情報を考える週間" in title:
+    continue
     if len(title) < 10:
         continue
     ng_words = [

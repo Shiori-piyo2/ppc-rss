@@ -14,38 +14,25 @@ links = soup.find_all("a")
 
 items = []
 
-　　for link in links:
+for link in links:
     title = link.get_text(strip=True)
 
-　　if "個人情報保護委員会" in title:
-    continue
-
-　　if "改正法" in title:
-    continue
-
-　　if "年次報告" in title:
-    continue
-
-　　if "上半期報告" in title:
-    continue
-
-　　if "個人情報を考える週間" in title:
-    continue
-    if len(title) < 10:
-        continue
-    ng_words = [
-        "フッターへ移動します",
-        "ホーム",
-        "委員会について",
-        "個人情報保護委員会について",
-        "委員長・委員・幹部紹介"
-    ]
-
-    if title in ng_words:
+    if len(title) < 15:
         continue
 
-    
-    if len(items) >= 10:
+    if "個人情報保護委員会" in title:
+        continue
+
+    if "年次報告" in title:
+        continue
+
+    if "上半期報告" in title:
+        continue
+
+    if "個人情報を考える週間" in title:
+        continue
+
+    if len(items) >= 15:
         break
 
     items.append(title)

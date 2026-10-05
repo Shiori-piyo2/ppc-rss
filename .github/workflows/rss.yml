@@ -1,13 +1,11 @@
-name: Generate RSS Feed
+name: Generate RSS
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"
-
-permissions:
-  contents: write
-
+    - cron: '0 0 * * *'
+    - cron: '0 6 * * *'
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,13 +29,10 @@ jobs:
 
       - name: Commit feed
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
 
           git add .
+          git diff --cached --quiet || git commit -m "Update feed"
 
-          git diff --cached --quiet || \
-          git commit -m "Update feed"
-
-                   git pull --rebase origin main
           git push

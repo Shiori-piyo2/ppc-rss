@@ -1,18 +1,21 @@
-from datetime import datetime
+import requests
 
 print("PPC RSS")
 
+r = requests.get("https://www.ppc.go.jp/")
+r.raise_for_status()
+
 with open("feed.xml", "w", encoding="utf-8") as f:
     f.write(
-        f"""<?xml version="1.0" encoding="UTF-8"?>
+        """<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
 <channel>
-<title>PPC Test Feed</title>
+<title>PPC RSS</title>
 <link>https://www.ppc.go.jp/</link>
-<description>Test</description>
+<description>PPC RSS</description>
 
 <item>
-<title>PPCテスト {datetime.now()}</title>
+<title>PPCトップページ取得成功</title>
 <link>https://www.ppc.go.jp/</link>
 </item>
 
@@ -20,3 +23,4 @@ with open("feed.xml", "w", encoding="utf-8") as f:
 </rss>
 """
     )
+``

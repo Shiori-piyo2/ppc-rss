@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 print("PPC RSS")
 
-url = "https://www.ppc.go.jp/"
+url = "https://www.ppc.go.jp/information/"
 
 r = requests.get(url)
 r.raise_for_status()

@@ -10,7 +10,7 @@ r.raise_for_status()
 
 soup = BeautifulSoup(r.text, "html.parser")
 
-links = soup.find_all("a")
+links = soup.select("div.news-text a")
 
 items = []
 

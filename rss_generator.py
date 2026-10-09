@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-from email.utils import formatdate
+from feedgen.feed import FeedGenerator
 
 print("PPC RSS")
 
@@ -12,7 +12,13 @@ r.raise_for_status()
 
 soup = BeautifulSoup(r.text, "html.parser")
 
-items = []
+fg = FeedGenerator()
+fg.title("個人情報保護委員会 新着情報")
+fg.link(href=SOURCE_URL)
+fg.description("個人情報保護委員会 新着情報RSS")
+fg.language("ja")
+
+count = 0
 
 for link in soup.select("div.news-text a"):
 
@@ -37,41 +43,17 @@ for link in soup.select("div.news-text a"):
 
     article_url = urljoin(SOURCE_URL, href)
 
-    items.append({
-        "title": title,
-        "link": article_url
-    })
+    fe = fg.add_entry()
+    fe.title(title)
+    fe.link(href=article_url)
+    fe.guid(article_url, permalink=True)
+    fe.description(f'元記事: {article_url}')
 
-    if len(items) >= 15:
+    count += 1
+
+    if count >= 15:
         break
 
-with open("feed.xml", "w", encoding="utf-8") as f:
+fg.rss_file("feed.xml")
 
-    f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-    f.write('<rss version="2.0">\n')
-    f.write('<channel>\n')
-
-    f.write('<title>個人情報保護委員会 新着情報</title>\n')
-    f.write('<link>https://www.ppc.go.jp/information/</link>\n')
-    f.write('<description>個人情報保護委員会 新着情報RSS</description>\n')
-    f.write(f'<lastBuildDate>{formatdate(usegmt=True)}</lastBuildDate>\n')
-
-    for item in items:
-
-        f.write('<item>\n')
-        f.write(f'<title><![CDATA[{item["title"]}]]></title>\n')
-        f.write(f'<link>{item["link"]}</link>\n')
-        f.write(f'<guid isPermaLink="true">{item["link"]}</guid>\n')
-
-        f.write(
-            f'<description><![CDATA['
-            f'<p><a href="{item["</p>'
-            f']]></description>\n'
-        )
-
-        f.write('</item>\n')
-
-    f.write('</channel>\n')
-    f.write('</rss>\n')
-
-print(f"{len(items)} items written")
+print(f"{count} items written")

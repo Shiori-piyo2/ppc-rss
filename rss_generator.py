@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
 print("PPC RSS")
 
@@ -29,10 +30,20 @@ for link in links:
     if "個人情報を考える週間" in title:
         continue
 
+    href = link.get("href")
+
+    if not href:
+        continue
+
+    article_url = urljoin(url, href)
+
+    items.append({
+        "title": title,
+        "link": article_url
+    })
+
     if len(items) >= 15:
         break
-
-    items.append(title)
 
 with open("feed.xml", "w", encoding="utf-8") as f:
 
@@ -40,10 +51,14 @@ with open("feed.xml", "w", encoding="utf-8") as f:
     f.write('<rss version="2.0">\n')
     f.write('<channel>\n')
     f.write('<title>PPC RSS</title>\n')
+    f.write('<link>https://www.ppc.go.jp/information/</link>\n')
+    f.write('<description>個人情報保護委員会 新着情報</description>\n')
 
     for item in items:
         f.write('<item>\n')
-        f.write(f'<title>{item}</title>\n')
+        f.write(f'<title>{item["title"]}</title>\n')
+        f.write(f'<link>{item["link"]}</link>\n')
+        f.write(f'<guid>{item["link"]}</guid>\n')
         f.write('</item>\n')
 
     f.write('</channel>\n')
